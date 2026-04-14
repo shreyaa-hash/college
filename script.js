@@ -393,7 +393,7 @@ document.addEventListener('DOMContentLoaded', () => {
       waMessage += `*Passport:* ${passport}\n\n`;
       waMessage += `*Message:* ${message}`;
 
-      const waNumber = '918299226673';
+      const waNumber = '919936949794';
       const waUrl = `https://wa.me/${waNumber}?text=${encodeURIComponent(waMessage)}`;
 
       // Simulate a small delay for better UX
