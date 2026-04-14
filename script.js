@@ -338,24 +338,81 @@ document.addEventListener('DOMContentLoaded', () => {
   if (admissionForm) {
     admissionForm.addEventListener('submit', (e) => {
       e.preventDefault();
+      
       const btn = admissionForm.querySelector('.admission-submit');
       const originalText = btn.innerHTML;
-      btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Submitting Application...';
+      btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Preparing WhatsApp...';
       btn.disabled = true;
 
-      setTimeout(() => {
-        btn.innerHTML = '<i class="fas fa-check-circle"></i> Application Submitted Successfully!';
-        btn.style.background = 'linear-gradient(135deg, #10b981, #059669)';
+      // Gather form data
+      const fName = document.getElementById('admFirstName').value;
+      const lName = document.getElementById('admLastName').value;
+      const email = document.getElementById('admEmail').value;
+      const phone = document.getElementById('admPhone').value;
+      const dob = document.getElementById('admDob').value;
+      const gender = document.getElementById('admGender').options[document.getElementById('admGender').selectedIndex].text;
+      const address = document.getElementById('admAddress').value;
+      const city = document.getElementById('admCity').value;
+      const state = document.getElementById('admState').value;
 
+      const board = document.getElementById('admBoard').options[document.getElementById('admBoard').selectedIndex].text;
+      const year = document.getElementById('admYear').options[document.getElementById('admYear').selectedIndex].text;
+      const percent = document.getElementById('admPercent').value;
+      const neet = document.getElementById('admNeet').value || 'N/A';
+      const pcb = document.getElementById('admPcb').value;
+      const english = document.getElementById('admEnglish').value || 'N/A';
+
+      const course = document.getElementById('admCourse').options[document.getElementById('admCourse').selectedIndex].text;
+      const country = document.getElementById('admCountry').options[document.getElementById('admCountry').selectedIndex].text;
+      const budget = document.getElementById('admBudget').options[document.getElementById('admBudget').selectedIndex].text;
+      const intake = document.getElementById('admIntake').options[document.getElementById('admIntake').selectedIndex].text;
+      const passport = document.getElementById('admPassport').options[document.getElementById('admPassport').selectedIndex].text;
+      const message = document.getElementById('admMessage').value || 'N/A';
+
+      // Format WhatsApp Message
+      let waMessage = `*New Admission Application* 🎓\n\n`;
+      waMessage += `*--- Personal Info ---*\n`;
+      waMessage += `*Name:* ${fName} ${lName}\n`;
+      waMessage += `*Email:* ${email}\n`;
+      waMessage += `*Phone:* ${phone}\n`;
+      waMessage += `*DOB:* ${dob} | *Gender:* ${gender}\n`;
+      waMessage += `*Location:* ${city}, ${state}\n`;
+      waMessage += `*Address:* ${address}\n\n`;
+
+      waMessage += `*--- Academic Info ---*\n`;
+      waMessage += `*Board:* ${board} (${year})\n`;
+      waMessage += `*12th %:* ${percent}\n`;
+      waMessage += `*PCB %:* ${pcb} | *English:* ${english}\n`;
+      waMessage += `*NEET Score:* ${neet}\n\n`;
+
+      waMessage += `*--- Preferences ---*\n`;
+      waMessage += `*Course:* ${course}\n`;
+      waMessage += `*Country:* ${country}\n`;
+      waMessage += `*Budget:* ${budget}\n`;
+      waMessage += `*Intake:* ${intake}\n`;
+      waMessage += `*Passport:* ${passport}\n\n`;
+      waMessage += `*Message:* ${message}`;
+
+      const waNumber = '918299226673';
+      const waUrl = `https://wa.me/${waNumber}?text=${encodeURIComponent(waMessage)}`;
+
+      // Simulate a small delay for better UX
+      setTimeout(() => {
+        btn.innerHTML = '<i class="fas fa-check-circle"></i> Redirecting...';
+        btn.style.background = 'linear-gradient(135deg, #10b981, #059669)';
+        
+        // Open WhatsApp in a new tab
+        window.open(waUrl, '_blank');
+
+        // Reset form
         setTimeout(() => {
           admissionForm.reset();
           btn.innerHTML = originalText;
           btn.disabled = false;
           btn.style.background = '';
-          // Reset to step 1
           window.nextStep(1);
-        }, 4000);
-      }, 2000);
+        }, 2000);
+      }, 1000);
     });
   }
 
