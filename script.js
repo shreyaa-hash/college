@@ -258,7 +258,7 @@ document.addEventListener('DOMContentLoaded', () => {
     e.preventDefault();
     const btn = contactForm.querySelector('.btn-submit');
     const originalText = btn.innerHTML;
-    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Preparing WhatsApp...';
+    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Preparing Email...';
     btn.disabled = true;
 
     // Gather form data
@@ -266,27 +266,24 @@ document.addEventListener('DOMContentLoaded', () => {
     const phone = document.getElementById('phone').value;
     const email = document.getElementById('email').value;
     const city = document.getElementById('city').value || 'N/A';
-    const uniSelect = document.getElementById('university');
-    const university = uniSelect.selectedIndex >= 0 ? uniSelect.options[uniSelect.selectedIndex].text : 'N/A';
     const message = document.getElementById('message').value || 'N/A';
 
-    // Format WhatsApp Message
-    let waMessage = `*New Free Counseling Request* 🎓\n\n`;
-    waMessage += `*Name:* ${fullName}\n`;
-    waMessage += `*Phone:* ${phone}\n`;
-    waMessage += `*Email:* ${email}\n`;
-    waMessage += `*City/State:* ${city}\n`;
-    waMessage += `*Preferred Country:* ${university}\n\n`;
-    waMessage += `*Message:* ${message}`;
+    // Format Email Content
+    const emailSubject = `New Free Counseling Request - ${fullName}`;
+    let emailBody = `New Inquiry Details:\n\n`;
+    emailBody += `Name: ${fullName}\n`;
+    emailBody += `Phone: ${phone}\n`;
+    emailBody += `Email: ${email}\n`;
+    emailBody += `City/State: ${city}\n\n`;
+    emailBody += `Message: ${message}`;
 
-    const waNumber = '919936949794';
-    const waUrl = `https://wa.me/${waNumber}?text=${encodeURIComponent(waMessage)}`;
+    const mailtoUrl = `mailto:contact.svglobalmedconnect@gmail.com?subject=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(emailBody)}`;
 
     setTimeout(() => {
-      btn.innerHTML = '<i class="fas fa-check-circle"></i> Redirecting...';
+      btn.innerHTML = '<i class="fas fa-check-circle"></i> Opening Email...';
       btn.style.background = 'linear-gradient(135deg, #10b981, #059669)';
       
-      window.open(waUrl, '_blank');
+      window.location.href = mailtoUrl;
 
       setTimeout(() => {
         contactForm.reset();
