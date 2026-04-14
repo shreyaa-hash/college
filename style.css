@@ -2251,18 +2251,21 @@ h1, h2, h3, h4, h5, h6 {
    LOGO IMAGE SIZING & TEXT ALIGNMENT
    ============================================ */
 .nav-logo .logo-img {
-  height: 48px;
-  width: auto;
+  height: 50px;
+  width: 50px;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  object-position: center 15%; /* Crops slightly down to perfectly box the icon */
+  border-radius: 50%;
+  background: white;
+  border: 2px solid white;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   transition: all var(--transition-base);
-  background: white; /* to ensure visibility */
-  border-radius: 50%; /* optional: if logo has white background */
-  padding: 4px;
 }
 
 .navbar.scrolled .nav-logo .logo-img {
-  padding: 0;
-  background: transparent;
   transform: scale(0.9);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
 }
 
 .nav-logo .logo-text {
@@ -2270,6 +2273,7 @@ h1, h2, h3, h4, h5, h6 {
   flex-direction: column;
   line-height: 1.1;
   font-size: 1.15rem;
+  margin-left: 5px;
 }
 
 .nav-logo .logo-text small {
@@ -2285,15 +2289,19 @@ h1, h2, h3, h4, h5, h6 {
 .footer-logo {
   display: flex !important;
   align-items: center;
-  gap: 12px;
+  gap: 15px;
 }
 
 .footer-logo-img {
-  height: 60px;
-  width: auto;
+  height: 65px;
+  width: 65px;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  object-position: center 15%;
   border-radius: 50%;
   background: white;
-  padding: 4px;
+  border: 2px solid white;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 .footer-logo span {
