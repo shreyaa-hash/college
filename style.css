@@ -2254,8 +2254,8 @@ h1, h2, h3, h4, h5, h6 {
   height: 50px;
   width: 50px;
   aspect-ratio: 1 / 1;
-  object-fit: cover;
-  object-position: center 15%; /* Crops slightly down to perfectly box the icon */
+  object-fit: contain;
+  object-position: center;
   border-radius: 50%;
   background: white;
   border: 2px solid white;
@@ -2296,8 +2296,8 @@ h1, h2, h3, h4, h5, h6 {
   height: 65px;
   width: 65px;
   aspect-ratio: 1 / 1;
-  object-fit: cover;
-  object-position: center 15%;
+  object-fit: contain;
+  object-position: center;
   border-radius: 50%;
   background: white;
   border: 2px solid white;

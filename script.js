@@ -397,48 +397,65 @@ document.addEventListener('DOMContentLoaded', () => {
       const intake = getText('admIntake');
       const passport = getText('admPassport');
       const message = getVal('admMessage');
+      const emailSubject = `New Admission Application: ${fName} ${lName}`;
 
-      // Format Email Message
-      let emailBody = `New Admission Application 🎓\n\n`;
-      emailBody += `--- Personal Info ---\n`;
-      emailBody += `Name: ${fName} ${lName}\n`;
-      emailBody += `Email: ${email}\n`;
-      emailBody += `Phone: ${phone}\n`;
-      emailBody += `DOB: ${dob} | Gender: ${gender}\n`;
-      emailBody += `Location: ${city}, ${state}\n`;
-      emailBody += `Address: ${address}\n\n`;
-
-      emailBody += `--- Academic Info ---\n`;
-      emailBody += `Board: ${board} (${year})\n`;
-      emailBody += `12th %: ${percent}\n`;
-      emailBody += `PCB %: ${pcb} | English: ${english}\n`;
-      emailBody += `NEET Score: ${neet}\n\n`;
-
-      emailBody += `--- Preferences ---\n`;
-      emailBody += `Course: ${course}\n`;
-      emailBody += `Country: ${country}\n`;
-      emailBody += `Budget: ${budget}\n`;
-      emailBody += `Intake: ${intake}\n`;
-      emailBody += `Passport: ${passport}\n\n`;
-      emailBody += `Message: ${message}`;
-
-      const emailSubject = `New Admission Application - ${fName} ${lName}`;
-      const mailtoUrl = `mailto:contact.svglobalmedconnect@gmail.com?subject=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(emailBody)}`;
-
-      // Open Email App immediately to avoid popup blockers
-      window.location.href = mailtoUrl;
-
-      // Update button state and reset form
-      btn.innerHTML = '<i class="fas fa-check-circle"></i> Opening Email...';
-      btn.style.background = 'linear-gradient(135deg, #10b981, #059669)';
-
-      setTimeout(() => {
-        admissionForm.reset();
-        btn.innerHTML = originalText;
-        btn.disabled = false;
-        btn.style.background = '';
-        window.nextStep(1);
-      }, 2000);
+      // Send Email silently via FormSubmit API
+      fetch("https://formsubmit.co/ajax/contact.svglobalmedconnect@gmail.com", {
+        method: "POST",
+        headers: { 
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+          _subject: emailSubject,
+          "--- PERSONAL DETAILS ---": "----------------",
+          "First Name": fName,
+          "Last Name": lName,
+          "Email": email,
+          "Phone": phone,
+          "Date of Birth": dob,
+          "Gender": gender,
+          "City & State": `${city}, ${state}`,
+          "Street Address": address,
+          "--- ACADEMIC DETAILS ---": "----------------",
+          "12th Board & Year": `${board} (${year})`,
+          "12th Overall %": percent,
+          "PCB %": pcb,
+          "English Marks": english,
+          "NEET Score": neet,
+          "--- PREFERENCES ---": "----------------",
+          "Target Course": course,
+          "Estimated Budget": budget,
+          "Intake Year": intake,
+          "Passport Status": passport,
+          "Additional Message": message
+        })
+      })
+      .then(response => response.json())
+      .then(data => {
+        // Success
+        btn.innerHTML = '<i class="fas fa-check-circle"></i> Application Sent!';
+        btn.style.background = 'linear-gradient(135deg, #10b981, #059669)';
+        
+        setTimeout(() => {
+          admissionForm.reset();
+          btn.innerHTML = originalText;
+          btn.disabled = false;
+          btn.style.background = '';
+          window.nextStep(1); // Return to step 1
+        }, 3000);
+      })
+      .catch(error => {
+        // Fallback error
+        btn.innerHTML = '<i class="fas fa-exclamation-triangle"></i> Error Sending';
+        btn.style.background = 'linear-gradient(135deg, #ef4444, #dc2626)';
+        setTimeout(() => {
+          btn.innerHTML = originalText;
+          btn.disabled = false;
+          btn.style.background = '';
+        }, 3000);
+        console.error(error);
+      });
     };
 
     admissionForm.addEventListener('submit', handleAdmissionSubmit);
