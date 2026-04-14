@@ -279,19 +279,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const mailtoUrl = `mailto:contact.svglobalmedconnect@gmail.com?subject=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(emailBody)}`;
 
-    setTimeout(() => {
-      btn.innerHTML = '<i class="fas fa-check-circle"></i> Opening Email...';
-      btn.style.background = 'linear-gradient(135deg, #10b981, #059669)';
-      
-      window.location.href = mailtoUrl;
+    // Trigger email client immediately
+    window.location.href = mailtoUrl;
 
-      setTimeout(() => {
-        contactForm.reset();
-        btn.innerHTML = originalText;
-        btn.disabled = false;
-        btn.style.background = '';
-      }, 2000);
-    }, 1000);
+    // Update button state and reset form
+    btn.innerHTML = '<i class="fas fa-check-circle"></i> Opening Email...';
+    btn.style.background = 'linear-gradient(135deg, #10b981, #059669)';
+
+    setTimeout(() => {
+      contactForm.reset();
+      btn.innerHTML = originalText;
+      btn.disabled = false;
+      btn.style.background = '';
+    }, 2000);
   });
 
   // ==================== SMOOTH SCROLL ====================
@@ -424,23 +424,20 @@ document.addEventListener('DOMContentLoaded', () => {
       const waNumber = '918299226673';
       const waUrl = `https://wa.me/${waNumber}?text=${encodeURIComponent(waMessage)}`;
 
-      // Simulate a small delay for better UX
-      setTimeout(() => {
-        btn.innerHTML = '<i class="fas fa-check-circle"></i> Redirecting...';
-        btn.style.background = 'linear-gradient(135deg, #10b981, #059669)';
-        
-        // Open WhatsApp in a new tab
-        window.open(waUrl, '_blank');
+      // Open WhatsApp immediately to avoid popup blockers
+      window.open(waUrl, '_blank');
 
-        // Reset form
-        setTimeout(() => {
-          admissionForm.reset();
-          btn.innerHTML = originalText;
-          btn.disabled = false;
-          btn.style.background = '';
-          window.nextStep(1);
-        }, 2000);
-      }, 1000);
+      // Update button state and reset form
+      btn.innerHTML = '<i class="fas fa-check-circle"></i> Redirecting...';
+      btn.style.background = 'linear-gradient(135deg, #10b981, #059669)';
+
+      setTimeout(() => {
+        admissionForm.reset();
+        btn.innerHTML = originalText;
+        btn.disabled = false;
+        btn.style.background = '';
+        window.nextStep(1);
+      }, 2000);
     });
   }
 
