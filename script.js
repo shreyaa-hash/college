@@ -397,38 +397,38 @@ document.addEventListener('DOMContentLoaded', () => {
       const passport = getText('admPassport');
       const message = getVal('admMessage');
 
-      // Format WhatsApp Message
-      let waMessage = `*New Admission Application* 🎓\n\n`;
-      waMessage += `*--- Personal Info ---*\n`;
-      waMessage += `*Name:* ${fName} ${lName}\n`;
-      waMessage += `*Email:* ${email}\n`;
-      waMessage += `*Phone:* ${phone}\n`;
-      waMessage += `*DOB:* ${dob} | *Gender:* ${gender}\n`;
-      waMessage += `*Location:* ${city}, ${state}\n`;
-      waMessage += `*Address:* ${address}\n\n`;
+      // Format Email Message
+      let emailBody = `New Admission Application 🎓\n\n`;
+      emailBody += `--- Personal Info ---\n`;
+      emailBody += `Name: ${fName} ${lName}\n`;
+      emailBody += `Email: ${email}\n`;
+      emailBody += `Phone: ${phone}\n`;
+      emailBody += `DOB: ${dob} | Gender: ${gender}\n`;
+      emailBody += `Location: ${city}, ${state}\n`;
+      emailBody += `Address: ${address}\n\n`;
 
-      waMessage += `*--- Academic Info ---*\n`;
-      waMessage += `*Board:* ${board} (${year})\n`;
-      waMessage += `*12th %:* ${percent}\n`;
-      waMessage += `*PCB %:* ${pcb} | *English:* ${english}\n`;
-      waMessage += `*NEET Score:* ${neet}\n\n`;
+      emailBody += `--- Academic Info ---\n`;
+      emailBody += `Board: ${board} (${year})\n`;
+      emailBody += `12th %: ${percent}\n`;
+      emailBody += `PCB %: ${pcb} | English: ${english}\n`;
+      emailBody += `NEET Score: ${neet}\n\n`;
 
-      waMessage += `*--- Preferences ---*\n`;
-      waMessage += `*Course:* ${course}\n`;
-      waMessage += `*Country:* ${country}\n`;
-      waMessage += `*Budget:* ${budget}\n`;
-      waMessage += `*Intake:* ${intake}\n`;
-      waMessage += `*Passport:* ${passport}\n\n`;
-      waMessage += `*Message:* ${message}`;
+      emailBody += `--- Preferences ---\n`;
+      emailBody += `Course: ${course}\n`;
+      emailBody += `Country: ${country}\n`;
+      emailBody += `Budget: ${budget}\n`;
+      emailBody += `Intake: ${intake}\n`;
+      emailBody += `Passport: ${passport}\n\n`;
+      emailBody += `Message: ${message}`;
 
-      const waNumber = '918299226673';
-      const waUrl = `https://wa.me/${waNumber}?text=${encodeURIComponent(waMessage)}`;
+      const emailSubject = `New Admission Application - ${fName} ${lName}`;
+      const mailtoUrl = `mailto:contact.svglobalmedconnect@gmail.com?subject=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(emailBody)}`;
 
-      // Open WhatsApp immediately to avoid popup blockers
-      window.open(waUrl, '_blank');
+      // Open Email App immediately to avoid popup blockers
+      window.location.href = mailtoUrl;
 
       // Update button state and reset form
-      btn.innerHTML = '<i class="fas fa-check-circle"></i> Redirecting...';
+      btn.innerHTML = '<i class="fas fa-check-circle"></i> Opening Email...';
       btn.style.background = 'linear-gradient(135deg, #10b981, #059669)';
 
       setTimeout(() => {
