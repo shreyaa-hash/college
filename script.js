@@ -357,8 +357,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Admission form submission
   if (admissionForm) {
-    admissionForm.addEventListener('submit', (e) => {
+    const handleAdmissionSubmit = (e) => {
       e.preventDefault();
+
       
       const btn = admissionForm.querySelector('.admission-submit');
       const originalText = btn.innerHTML;
@@ -438,7 +439,10 @@ document.addEventListener('DOMContentLoaded', () => {
         btn.style.background = '';
         window.nextStep(1);
       }, 2000);
-    });
+    };
+
+    admissionForm.addEventListener('submit', handleAdmissionSubmit);
+    admissionForm.querySelector('.admission-submit').addEventListener('click', handleAdmissionSubmit);
   }
 
 });
