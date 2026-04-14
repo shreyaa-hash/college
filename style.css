@@ -1825,6 +1825,10 @@ h1, h2, h3, h4, h5, h6 {
 @media (max-width: 1024px) {
   .hero-visual { display: none; }
   .footer-grid { grid-template-columns: 1fr 1fr; gap: var(--space-xl); }
+  .about-grid { grid-template-columns: 1fr; }
+  .stats-grid-photo { grid-template-columns: 1fr; }
+  .hero-content { max-width: none; }
+  .contact-grid { grid-template-columns: 1fr; }
 }
 
 @media (max-width: 768px) {
@@ -1891,6 +1895,11 @@ h1, h2, h3, h4, h5, h6 {
 
   .hero-title {
     font-size: 2rem;
+  }
+
+  .hero-ctas {
+    flex-direction: column;
+    align-items: flex-start;
   }
 
   .form-row {
