@@ -362,7 +362,7 @@ document.addEventListener('DOMContentLoaded', () => {
       
       const btn = admissionForm.querySelector('.admission-submit');
       const originalText = btn.innerHTML;
-      btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Preparing WhatsApp...';
+      btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Preparing Email...';
       btn.disabled = true;
 
       // Helper function to safely get value or text
