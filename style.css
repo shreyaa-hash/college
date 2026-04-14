@@ -1844,9 +1844,25 @@ h1, h2, h3, h4, h5, h6 {
     justify-content: center;
     align-items: center;
     gap: var(--space-xl);
+    padding: 100px 20px 40px;
+    overflow-y: auto;
     box-shadow: -10px 0 30px rgba(0,0,0,0.1);
     transition: right var(--transition-slow);
     z-index: 1000;
+  }
+
+  .nav-links a {
+    color: var(--slate-700);
+    font-size: 1rem;
+    font-weight: 600;
+  }
+
+  .nav-links a:hover {
+    color: var(--navy-700);
+  }
+
+  .nav-links a::after {
+    background: var(--navy-500);
   }
 
   .nav-links.open {
