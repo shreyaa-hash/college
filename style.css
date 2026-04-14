@@ -1163,6 +1163,264 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* ============================================
+   ADMISSION FORM SECTION
+   ============================================ */
+.admission-section {
+  background: linear-gradient(160deg, var(--navy-950) 0%, var(--navy-800) 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.admission-section::before {
+  content: '';
+  position: absolute;
+  top: -20%;
+  left: -10%;
+  width: 50%;
+  height: 60%;
+  background: radial-gradient(circle, rgba(251,191,36,0.06), transparent 60%);
+}
+
+.admission-section .section-badge {
+  background: rgba(255,255,255,0.1);
+  color: var(--gold-400);
+}
+
+.admission-section .section-title {
+  color: white;
+}
+
+.admission-section .section-subtitle {
+  color: rgba(226,232,240,0.65);
+}
+
+.admission-form-wrapper {
+  max-width: 800px;
+  margin: var(--space-2xl) auto 0;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: var(--radius-xl);
+  padding: var(--space-2xl) var(--space-2xl);
+  backdrop-filter: blur(10px);
+}
+
+/* Progress Steps */
+.form-progress {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  margin-bottom: var(--space-2xl);
+  padding-bottom: var(--space-xl);
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+
+.progress-step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  position: relative;
+}
+
+.progress-step span {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: rgba(255,255,255,0.35);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  transition: color var(--transition-base);
+}
+
+.progress-step.active span {
+  color: var(--gold-400);
+}
+
+.progress-step.completed span {
+  color: rgba(255,255,255,0.6);
+}
+
+.step-circle {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.08);
+  border: 2px solid rgba(255,255,255,0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 0.9rem;
+  color: rgba(255,255,255,0.4);
+  transition: all var(--transition-base);
+}
+
+.progress-step.active .step-circle {
+  background: linear-gradient(135deg, var(--gold-400), var(--gold-500));
+  border-color: var(--gold-400);
+  color: var(--navy-900);
+  box-shadow: 0 0 0 6px rgba(251,191,36,0.15);
+}
+
+.progress-step.completed .step-circle {
+  background: rgba(16, 185, 129, 0.2);
+  border-color: #10b981;
+  color: #10b981;
+}
+
+.progress-line {
+  width: 60px;
+  height: 2px;
+  background: rgba(255,255,255,0.1);
+  margin: 0 var(--space-md);
+  margin-bottom: 24px;
+  border-radius: 2px;
+  position: relative;
+  overflow: hidden;
+}
+
+.progress-line.filled::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--gold-400);
+  animation: lineFill 0.4s ease forwards;
+}
+
+@keyframes lineFill {
+  from { width: 0; }
+  to { width: 100%; }
+}
+
+/* Form Steps */
+.form-step {
+  display: none;
+  animation: fadeStepIn 0.4s ease;
+}
+
+.form-step.active {
+  display: block;
+}
+
+@keyframes fadeStepIn {
+  from { opacity: 0; transform: translateX(20px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+.form-step h3 {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: white;
+  margin-bottom: var(--space-xl);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.form-step h3 i {
+  color: var(--gold-400);
+}
+
+/* Admission form inputs (dark theme override) */
+.admission-form .form-group label {
+  color: rgba(226,232,240,0.75);
+}
+
+.admission-form .form-group input,
+.admission-form .form-group select,
+.admission-form .form-group textarea {
+  background: rgba(255,255,255,0.06);
+  border: 1.5px solid rgba(255,255,255,0.12);
+  color: white;
+}
+
+.admission-form .form-group input::placeholder,
+.admission-form .form-group textarea::placeholder {
+  color: rgba(255,255,255,0.3);
+}
+
+.admission-form .form-group input:focus,
+.admission-form .form-group select:focus,
+.admission-form .form-group textarea:focus {
+  border-color: var(--gold-400);
+  box-shadow: 0 0 0 3px rgba(251,191,36,0.15);
+  background: rgba(255,255,255,0.08);
+}
+
+.admission-form .form-group select option {
+  background: var(--navy-900);
+  color: white;
+}
+
+/* Form Navigation */
+.form-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: var(--space-xl);
+  padding-top: var(--space-lg);
+  border-top: 1px solid rgba(255,255,255,0.08);
+}
+
+.btn-next, .btn-prev {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 28px;
+  border-radius: var(--radius-pill);
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  transition: all var(--transition-base);
+}
+
+.btn-next {
+  background: linear-gradient(135deg, var(--gold-400), var(--gold-500));
+  color: var(--navy-900);
+  box-shadow: var(--shadow-gold);
+}
+
+.btn-next:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(245,158,11,0.4);
+}
+
+.btn-prev {
+  background: rgba(255,255,255,0.08);
+  color: rgba(255,255,255,0.7);
+  border: 1px solid rgba(255,255,255,0.15);
+}
+
+.btn-prev:hover {
+  background: rgba(255,255,255,0.12);
+  color: white;
+}
+
+.admission-submit {
+  background: linear-gradient(135deg, #10b981, #059669) !important;
+  box-shadow: 0 4px 20px rgba(16,185,129,0.3);
+}
+
+.admission-submit:hover {
+  box-shadow: 0 8px 30px rgba(16,185,129,0.4) !important;
+}
+
+@media (max-width: 768px) {
+  .admission-form-wrapper {
+    padding: var(--space-xl) var(--space-lg);
+  }
+  .progress-line {
+    width: 30px;
+  }
+  .progress-step span {
+    font-size: 0.65rem;
+  }
+}
+
+/* ============================================
    CONTACT / CTA SECTION
    ============================================ */
 .contact {

@@ -301,4 +301,62 @@ document.addEventListener('DOMContentLoaded', () => {
     setTimeout(typeChar, 1200);
   }
 
+  // ==================== ADMISSION FORM MULTI-STEP ====================
+  const admissionForm = document.getElementById('admissionForm');
+  const progressSteps = document.querySelectorAll('.progress-step');
+  const progressLines = document.querySelectorAll('.progress-line');
+
+  window.nextStep = function(step) {
+    // Hide current step
+    document.querySelector('.form-step.active').classList.remove('active');
+    // Show target step
+    document.getElementById('formStep' + step).classList.add('active');
+
+    // Update progress indicator
+    progressSteps.forEach(ps => {
+      const s = parseInt(ps.dataset.step);
+      ps.classList.remove('active', 'completed');
+      if (s === step) ps.classList.add('active');
+      else if (s < step) ps.classList.add('completed');
+    });
+
+    // Fill progress lines
+    progressLines.forEach((line, i) => {
+      if (i < step - 1) line.classList.add('filled');
+      else line.classList.remove('filled');
+    });
+
+    // Scroll to form top
+    document.querySelector('.admission-form-wrapper').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  };
+
+  window.prevStep = function(step) {
+    window.nextStep(step);
+  };
+
+  // Admission form submission
+  if (admissionForm) {
+    admissionForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const btn = admissionForm.querySelector('.admission-submit');
+      const originalText = btn.innerHTML;
+      btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Submitting Application...';
+      btn.disabled = true;
+
+      setTimeout(() => {
+        btn.innerHTML = '<i class="fas fa-check-circle"></i> Application Submitted Successfully!';
+        btn.style.background = 'linear-gradient(135deg, #10b981, #059669)';
+
+        setTimeout(() => {
+          admissionForm.reset();
+          btn.innerHTML = originalText;
+          btn.disabled = false;
+          btn.style.background = '';
+          // Reset to step 1
+          window.nextStep(1);
+        }, 4000);
+      }, 2000);
+    });
+  }
+
 });
