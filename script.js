@@ -258,19 +258,43 @@ document.addEventListener('DOMContentLoaded', () => {
     e.preventDefault();
     const btn = contactForm.querySelector('.btn-submit');
     const originalText = btn.innerHTML;
-    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Submitting...';
+    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Preparing WhatsApp...';
     btn.disabled = true;
 
+    // Gather form data
+    const fullName = document.getElementById('fullName').value;
+    const phone = document.getElementById('phone').value;
+    const email = document.getElementById('email').value;
+    const city = document.getElementById('city').value || 'N/A';
+    const uniSelect = document.getElementById('university');
+    const university = uniSelect.selectedIndex >= 0 ? uniSelect.options[uniSelect.selectedIndex].text : 'N/A';
+    const message = document.getElementById('message').value || 'N/A';
+
+    // Format WhatsApp Message
+    let waMessage = `*New Free Counseling Request* 🎓\n\n`;
+    waMessage += `*Name:* ${fullName}\n`;
+    waMessage += `*Phone:* ${phone}\n`;
+    waMessage += `*Email:* ${email}\n`;
+    waMessage += `*City/State:* ${city}\n`;
+    waMessage += `*Preferred Country:* ${university}\n\n`;
+    waMessage += `*Message:* ${message}`;
+
+    const waNumber = '919936949794';
+    const waUrl = `https://wa.me/${waNumber}?text=${encodeURIComponent(waMessage)}`;
+
     setTimeout(() => {
-      btn.innerHTML = '<i class="fas fa-check-circle"></i> Enquiry Submitted!';
+      btn.innerHTML = '<i class="fas fa-check-circle"></i> Redirecting...';
       btn.style.background = 'linear-gradient(135deg, #10b981, #059669)';
+      
+      window.open(waUrl, '_blank');
+
       setTimeout(() => {
         contactForm.reset();
         btn.innerHTML = originalText;
         btn.disabled = false;
         btn.style.background = '';
-      }, 3000);
-    }, 1500);
+      }, 2000);
+    }, 1000);
   });
 
   // ==================== SMOOTH SCROLL ====================
@@ -344,30 +368,37 @@ document.addEventListener('DOMContentLoaded', () => {
       btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Preparing WhatsApp...';
       btn.disabled = true;
 
-      // Gather form data
-      const fName = document.getElementById('admFirstName').value;
-      const lName = document.getElementById('admLastName').value;
-      const email = document.getElementById('admEmail').value;
-      const phone = document.getElementById('admPhone').value;
-      const dob = document.getElementById('admDob').value;
-      const gender = document.getElementById('admGender').options[document.getElementById('admGender').selectedIndex].text;
-      const address = document.getElementById('admAddress').value;
-      const city = document.getElementById('admCity').value;
-      const state = document.getElementById('admState').value;
+      // Helper function to safely get value or text
+      const getVal = (id) => document.getElementById(id)?.value || 'N/A';
+      const getText = (id) => {
+        const el = document.getElementById(id);
+        return el && el.selectedIndex >= 0 ? el.options[el.selectedIndex].text : 'N/A';
+      };
 
-      const board = document.getElementById('admBoard').options[document.getElementById('admBoard').selectedIndex].text;
-      const year = document.getElementById('admYear').options[document.getElementById('admYear').selectedIndex].text;
-      const percent = document.getElementById('admPercent').value;
-      const neet = document.getElementById('admNeet').value || 'N/A';
-      const pcb = document.getElementById('admPcb').value;
-      const english = document.getElementById('admEnglish').value || 'N/A';
+      // Gather form data safely
+      const fName = getVal('admFirstName');
+      const lName = getVal('admLastName');
+      const email = getVal('admEmail');
+      const phone = getVal('admPhone');
+      const dob = getVal('admDob');
+      const gender = getText('admGender');
+      const address = getVal('admAddress');
+      const city = getVal('admCity');
+      const state = getVal('admState');
 
-      const course = document.getElementById('admCourse').options[document.getElementById('admCourse').selectedIndex].text;
-      const country = document.getElementById('admCountry').options[document.getElementById('admCountry').selectedIndex].text;
-      const budget = document.getElementById('admBudget').options[document.getElementById('admBudget').selectedIndex].text;
-      const intake = document.getElementById('admIntake').options[document.getElementById('admIntake').selectedIndex].text;
-      const passport = document.getElementById('admPassport').options[document.getElementById('admPassport').selectedIndex].text;
-      const message = document.getElementById('admMessage').value || 'N/A';
+      const board = getText('admBoard');
+      const year = getText('admYear');
+      const percent = getVal('admPercent');
+      const neet = getVal('admNeet');
+      const pcb = getVal('admPcb');
+      const english = getVal('admEnglish');
+
+      const course = getText('admCourse');
+      const country = getText('admCountry'); // Safe even if removed from HTML
+      const budget = getText('admBudget');
+      const intake = getText('admIntake');
+      const passport = getText('admPassport');
+      const message = getVal('admMessage');
 
       // Format WhatsApp Message
       let waMessage = `*New Admission Application* 🎓\n\n`;
