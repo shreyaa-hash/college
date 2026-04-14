@@ -2236,3 +2236,67 @@ h1, h2, h3, h4, h5, h6 {
   50%      { transform: translateY(-6px); }
 }
 
+/* ============================================
+   LOGO IMAGE SIZING & TEXT ALIGNMENT
+   ============================================ */
+.nav-logo .logo-img {
+  height: 48px;
+  width: auto;
+  transition: all var(--transition-base);
+  background: white; /* to ensure visibility */
+  border-radius: 50%; /* optional: if logo has white background */
+  padding: 4px;
+}
+
+.navbar.scrolled .nav-logo .logo-img {
+  padding: 0;
+  background: transparent;
+  transform: scale(0.9);
+}
+
+.nav-logo .logo-text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.1;
+  font-size: 1.15rem;
+}
+
+.nav-logo .logo-text small {
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: rgba(255,255,255,0.8);
+}
+
+.navbar.scrolled .nav-logo .logo-text small {
+  color: var(--slate-500);
+}
+
+.footer-logo {
+  display: flex !important;
+  align-items: center;
+  gap: 12px;
+}
+
+.footer-logo-img {
+  height: 60px;
+  width: auto;
+  border-radius: 50%;
+  background: white;
+  padding: 4px;
+}
+
+.footer-logo span {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.1;
+  font-size: 1.3rem;
+  font-family: var(--font-heading);
+  font-weight: 800;
+  color: white;
+}
+
+.footer-logo small {
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: rgba(255,255,255,0.7);
+}
